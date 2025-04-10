@@ -15,3 +15,4 @@ sudo apt-get update -y
 
 # Install Trivy
 sudo apt-get install trivy -y
+trivy --version
