@@ -13,11 +13,11 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 kubectl get svc -n argocd #Check services in Argo CD namespace
 
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}' #Expose Argo CD server using NodePort
+kubectl edit svc argocd-server -n argocd # Change type to LoadBalancer
 
-sleep 10
+sleep 5
 
-kubectl port-forward -n argocd service/argocd-server 8443:443 --address=0.0.0.0 & #Forward ports to access Argo CD server
+kubectl get svc -n argocd
 
 sleep 5
 
@@ -25,6 +25,6 @@ kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ## Accessing the Argo CD UI
 
-# URL: `https://localhost:8443`
+# URL: `https://localhost:8443` or LoadBalancer endpoint
 # Username: `admin`
 # Password: (as retrieved above)
